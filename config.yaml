@@ -1,6 +1,6 @@
-epochs: 50
+epochs: 3
 batch_size: 32
-vocab_size: 25
+vocab_size: 31
 task: sol  # hemo, sol, nf
 debug: false
 

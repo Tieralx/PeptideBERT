@@ -4,3 +4,4 @@ checkpoints/
 graphics/
 *.npz
 notes.md
+.venv/
