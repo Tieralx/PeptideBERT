@@ -1,5 +1,5 @@
 import torch
-import wandb
+#import wandb
 from datetime import datetime
 import yaml
 import os
@@ -23,13 +23,13 @@ def train_model():
         val_loss, val_acc = validate(model, val_data_loader, criterion, device)
         print(f'Epoch {epoch+1}/{config["epochs"]} - Validation Loss: {val_loss}\tValidation Accuracy: {val_acc}\n')
         scheduler.step(val_acc)
-        if not config['debug']:
-            wandb.log({
-                'train_loss': train_loss, 
-                'val_loss': val_loss, 
-                'val_accuracy': val_acc, 
-                'lr': curr_lr
-            })
+        #if not config['debug']:
+        #    wandb.log({
+        #        'train_loss': train_loss, 
+        #        'val_loss': val_loss, 
+        #        'val_accuracy': val_acc, 
+        #        'lr': curr_lr
+        #    })
 
         if val_acc >= best_acc and not config['debug']:
             best_acc = val_acc
@@ -44,7 +44,7 @@ def train_model():
                 'lr': curr_lr
             }, f'{save_dir}/model.pt')
             print('Model Saved\n')
-    wandb.finish()
+    #wandb.finish()
 
 
 config = yaml.load(open('./config.yaml', 'r'), Loader=yaml.FullLoader)
@@ -58,7 +58,7 @@ criterion, optimizer, scheduler = cri_opt_sch(config, model)
 
 if not config['debug']:
     run_name = f'{config["task"]}-{datetime.now().strftime("%m%d_%H%M")}'
-    wandb.init(project='PeptideBERT', name=run_name)
+    #wandb.init(project='PeptideBERT', name=run_name)
 
     save_dir = f'./checkpoints/{run_name}'
     if not os.path.exists(save_dir):
